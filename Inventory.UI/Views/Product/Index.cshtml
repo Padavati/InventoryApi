@@ -8,11 +8,13 @@
 <h2>Product List</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("ProductDetails", "Product")
 </p>
 
 <table class="table">
     <tr>
+        
+        <th>Product ID</th>
         <th>Product Name</th>
         <th>Product Description</th>
         <th>Product Price</th>
@@ -28,11 +30,10 @@
             <td>@product.ProductDescription</td>
             <td>@product.ProductPrice.ToString("C")</td>
             <td>@product.QuantityInStock</td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = product.ProductId }) |
-                @Html.ActionLink("Details", "Details", new { id = product.ProductId }) |
-                @Html.ActionLink("Delete", "Delete", new { id = product.ProductId })
-            </td>
+
+            <td><a asp-controller="Product" asp-action="GetProductDetails" asp-route-ProductId="@product.ProductId" class="btn btn-primary">Edit</a></td>
+            <td><a asp-controller="Product" asp-action="DeleteProductDetails" asp-route-ProductId="@product.ProductId" class="btn btn-danger">Delete</a></td>
+            
         </tr>
     }
 </table>

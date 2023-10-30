@@ -1,31 +1,40 @@
 ﻿@model Inventory.Entity.Models.UserInfo
 
-<form method="post">
-    
-    
-    <div class="form-group">
-        <label for="FirstName">First Name</label>
-        <input type="text" asp-for="FirstName" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label for="LastName">Last Name</label>
-        <input type="text" asp-for="LastName" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label for=Email"">Email</label>
-        <input type="text" asp-for="Email" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label for="Password">Password</label>
-        <input type="text" asp-for="Password" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label for="Mobile">Mobile</label>
-        <input type="text" asp-for="Mobile" class="form-control" />
-    </div>
-    <input type="submit" value="Register" class="btn btn-success" />
-    <button type="button"  class="btn btn-secondary" />Reset<button/>
+<div class="container">
+    <h2>User Registration</h2>
+    <form asp-action="Register" method="post">
+        <div class="form-group">
+            <label asp-for="FirstName">First Name:</label>
+            <input asp-for="FirstName" class="form-control" />
+            <span asp-validation-for="FirstName" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="LastName">Last Name:</label>
+            <input asp-for="LastName" class="form-control" />
+            <span asp-validation-for="LastName" class="text-danger"></span>
+        </div>
 
+        <div class="form-group">
+            <label asp-for="Email">Email:</label>
+            <input asp-for="Email" class="form-control" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Password">Password:</label>
+            <input asp-for="Password" type="password" class="form-control" />
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Mobile">Mobile Number:</label>
+            <input asp-for="Mobile" type="text" class="form-control" />
+            <span asp-validation-for="Mobile" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Register</button>
+    </form>
+</div>
 
     <hr />
     @if (ViewBag.status == "OK")
@@ -40,10 +49,10 @@
             @ViewBag.message
         </div>
     }
-</form>
+<hr/>
 
-    <hr/>
-    <div>
-        <a asp-controller="User" asp-action="Login">Already have an account? Login here.</a>
-    </div>
+ <div>
+  <a asp-controller="User" asp-action="Login">Already have an account? Login here.</a>
+ </div>
+ <hr/>
 

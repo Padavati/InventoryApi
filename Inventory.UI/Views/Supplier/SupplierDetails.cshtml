@@ -1,0 +1,46 @@
+﻿@model Inventory.Entity.Models.Supplier
+
+<form method="post">
+    <h2>Supplier Details </h2>
+    <hr />
+    <div class="form-group">
+        <label>Supplier Name</label>
+        <input type="text" asp-for="SupplierName" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>Supplier Email</label>
+        <input type="text" asp-for="SupplierEmail" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>Supplier City</label>
+        <input type="text" asp-for="SupplierCity" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>Supplier State</label>
+        <input type="text" asp-for="SupplierState" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>Supplier Country</label>
+        <input type="text" asp-for="SupplierCountry" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>Supplier PinCode</label>
+        <input type="text" asp-for="SupplierPinCode" class="form-control" />
+    </div>
+    <input type="submit" value="Save" class="btn btn-success" />
+    <input type="button" value="Reset" class="btn btn-primary" />
+
+    <hr />
+    @if (ViewBag.status == "OK")
+    {
+        <div class="alert alert-success">
+            @ViewBag.message
+        </div>
+    }
+    else if (ViewBag.status == "Error")
+    {
+        <div class="alert alert-danger">
+            @ViewBag.message
+        </div>
+    }
+</form>

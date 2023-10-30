@@ -22,6 +22,6 @@ namespace Inventory.Entity.Models
 
         public string Password { get; set; }
 
-        public int Mobile { get; set; }
+        public string Mobile { get; set; }
     }
 }

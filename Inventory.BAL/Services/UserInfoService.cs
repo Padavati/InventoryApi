@@ -21,9 +21,9 @@ namespace Inventory.BAL.Services
             _userInfoRepository.Register(userinfo);
         }
 
-        public void Login(UserInfo userinfo)
+        public UserInfo Login(UserInfo userinfo)
         {
-            _userInfoRepository.Login(userinfo);
+            return _userInfoRepository.Login(userinfo);
         }
     }
 }

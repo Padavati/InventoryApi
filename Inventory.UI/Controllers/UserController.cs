@@ -44,16 +44,19 @@ namespace Inventory.UI.Controllers
                 }
             }
             return View();
-            
+
         }
         public IActionResult Login()
         {
             return View();
         }
         [HttpPost]
+
         public async Task<IActionResult> Login(UserInfo userInfo)
         {
             ViewBag.status = "";
+
+
             using (HttpClient client = new HttpClient())
             {
                 StringContent content = new StringContent(JsonConvert.SerializeObject(userInfo), Encoding.UTF8, "application/Json");
@@ -62,11 +65,9 @@ namespace Inventory.UI.Controllers
                 {
                     if (response.StatusCode == System.Net.HttpStatusCode.OK)
                     {
-                        ViewBag.status = "OK";
-                        RedirectToAction("Index", "Product");
+                        return RedirectToAction("Index", "Product");
                     }
                     else
-
                     {
                         ViewBag.status = "Error";
                         ViewBag.message = "Wrong credentials!";

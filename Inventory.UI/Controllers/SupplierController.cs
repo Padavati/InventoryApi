@@ -2,62 +2,61 @@
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Text;
-using System.Linq;
 
 namespace Inventory.UI.Controllers
-{ //to connect with API
-    public class ProductController : Controller
+{
+    public class SupplierController : Controller
     {
         private IConfiguration _configuration;
-        public ProductController(IConfiguration configuration)
+        public SupplierController(IConfiguration configuration)
         {
             _configuration = configuration;
         }
-        #region ShowProductDetails
-        public async Task<IActionResult> Index() //GetProducts
+        #region ShowSupplierDetails
+        public async Task<IActionResult> Index() //GetSuppliers
         {
-            IEnumerable<Product> productResult = null;
+            IEnumerable<Supplier> supplierResult = null;
             using (HttpClient client = new HttpClient())
             {
-                string endpoint = _configuration["WebApiBaseUrl"] + "Product/GetProducts";
+                string endpoint = _configuration["WebApiBaseUrl"] + "Supplier/GetSuppliers";
                 using (var response = await client.GetAsync(endpoint))
                 {
                     if (response.StatusCode == System.Net.HttpStatusCode.OK)
                     {
                         var result = await response.Content.ReadAsStringAsync();
-                        productResult = JsonConvert.DeserializeObject<IEnumerable<Product>>(result);
+                        supplierResult = JsonConvert.DeserializeObject<IEnumerable<Supplier>>(result);
                     }
 
                 }
             }
 
-            return View(productResult);
+            return View(supplierResult);
         }
-        #endregion ShowProductDetails
-        #region AddProductDetails
-        public IActionResult ProductDetails()
+        #endregion ShowSupplierDetails
+        #region AddSupplierDetails
+        public IActionResult SupplierDetails()
 
         {
             return View();
 
         }
-        
-        //Add Product
+
+        //Add Supplier
         [HttpPost]
-        public async Task<IActionResult> ProductDetails(Product product)
+        public async Task<IActionResult> SupplierDetails(Supplier supplier)
 
         {
             ViewBag.status = "";
             using (HttpClient client = new HttpClient())
             {
-                StringContent content = new StringContent(JsonConvert.SerializeObject(product), Encoding.UTF8, "application/Json");
-                string endpoint = _configuration["WebApiBaseUrl"] + "Product/AddProduct";
+                StringContent content = new StringContent(JsonConvert.SerializeObject(supplier), Encoding.UTF8, "application/Json");
+                string endpoint = _configuration["WebApiBaseUrl"] + "Supplier/AddSupplier";
                 using (var response = await client.PostAsync(endpoint, content))
                 {
                     if (response.StatusCode == System.Net.HttpStatusCode.OK)
                     {
                         ViewBag.status = "OK";
-                        ViewBag.message = "Product Details Saved Successfully!!";
+                        ViewBag.message = "Supplier Details Saved Successfully!!";
                     }
                     else
 
@@ -69,38 +68,38 @@ namespace Inventory.UI.Controllers
             }
             return View();
         }
-        #endregion AddProductDetails
-        #region EditProductDetails
+        #endregion AddSupplierDetails
+        #region EditSupplierDetails
         // GET Method
-        public async Task<IActionResult> GetProductDetails(int ProductId) //GetProducts
+        public async Task<IActionResult> GetSupplierDetails(int SupplierId) //GetSuppliers
         {
-            Product productResult = null;
+            Supplier supplierResult = null;
             using (HttpClient client = new HttpClient())
             {
-                string endpoint = _configuration["WebApiBaseUrl"] + "Product/GetProductById?ProductId=" + ProductId;
+                string endpoint = _configuration["WebApiBaseUrl"] + "Supplier/GetSupplierById?SupplierId=" + SupplierId;
                 using (var response = await client.GetAsync(endpoint))
                 {
                     if (response.StatusCode == System.Net.HttpStatusCode.OK)
                     {
                         var result = await response.Content.ReadAsStringAsync();
-                        productResult = JsonConvert.DeserializeObject<Product>(result);
+                        supplierResult = JsonConvert.DeserializeObject<Supplier>(result);
                     }
 
                 }
             }
 
-            return View(productResult);
+            return View(supplierResult);
         }
 
 
         // POST Method
         [HttpPost]
-        public async Task<IActionResult> GetProductDetails(Product productDetails)
+        public async Task<IActionResult> GetSupplierDetails(Supplier supplierDetails)
         {
             using (HttpClient client = new HttpClient())
             {
-                StringContent content = new StringContent(JsonConvert.SerializeObject(productDetails), Encoding.UTF8, "application/json");
-                string endPoint = _configuration["WebApiBaseUrl"] + "Product/UpdateProduct";
+                StringContent content = new StringContent(JsonConvert.SerializeObject(supplierDetails), Encoding.UTF8, "application/json");
+                string endPoint = _configuration["WebApiBaseUrl"] + "Supplier/UpdateSupplier";
                 using (var response = await client.PutAsync(endPoint, content))
                 {
                     if (response.StatusCode == System.Net.HttpStatusCode.OK)
@@ -115,15 +114,15 @@ namespace Inventory.UI.Controllers
                     }
                 }
             }
-            return View();
+            return View(supplierDetails);
         }
-        #endregion EditProductDetails
-        #region DeleteProductDetails
-        public async Task<IActionResult> DeleteProductDetails(int ProductId)//Delete Product Details 
+        #endregion EditSupplierDetails
+        #region DeleteSupplierDetails
+        public async Task<IActionResult> DeleteSupplierDetails(int SupplierId)//Delete Supplier Details 
         {
             using (HttpClient client = new HttpClient())
             {
-                string endPoint = _configuration["WebApiBaseUrl"] + "Product/DeleteProduct?ProductId=" + ProductId;
+                string endPoint = _configuration["WebApiBaseUrl"] + "Supplier/GetSupplierById?SupplierId=" + SupplierId;
                 using (var response = await client.DeleteAsync(endPoint))
                 {
                     if (response.StatusCode == System.Net.HttpStatusCode.OK)
@@ -133,10 +132,9 @@ namespace Inventory.UI.Controllers
                     }
                 }
             }
-            return RedirectToAction("ProductId");
+            return RedirectToAction("SupplierId");
 
         }
-        #endregion DeleteProductDetails
+        #endregion DeleteSupplierDetails
     }
-
 }

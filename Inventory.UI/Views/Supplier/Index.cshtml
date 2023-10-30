@@ -1,0 +1,43 @@
+﻿@model IEnumerable<Inventory.Entity.Models.Supplier>
+
+
+@{
+    ViewBag.Title = "Supplier List";
+}
+
+<h2>Supplier List</h2>
+
+<p>
+    @Html.ActionLink("SupplierDetails", "Supplier")
+</p>
+
+<table class="table">
+    <tr>
+        <th>Supplier Id</th>
+        <th>Supplier Name</th>
+        <th>Supplier Email</th>
+        <th>Supplier City</th>
+        <th>Supplier State</th>
+        <th>Supplier Country</th>
+        <th>Supplier PinCode</th>
+        <th></th>
+    </tr>
+
+    @foreach (var supplier in Model)
+    {
+        <tr>
+            <td>@supplier.SupplierId</td>
+            <td>@supplier.SupplierName</td>
+            <td>@supplier.SupplierEmail</td>
+            <td>@supplier.SupplierCity</td>
+            <td>@supplier.SupplierState</td>
+            <td>@supplier.SupplierCountry</td>
+            <td>@supplier.SupplierPinCode</td>
+
+
+            <td><a asp-controller="Supplier" asp-action="GetSupplierDetails" asp-route-SupplierId="@supplier.SupplierId" class="btn btn-primary">Edit</a></td>
+            <td><a asp-controller="Supplier" asp-action="DeleteSupplierDetails" asp-route-SupplierId="@supplier.SupplierId" class="btn btn-danger">Delete</a></td>
+
+        </tr>
+    }
+</table>

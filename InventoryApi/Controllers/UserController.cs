@@ -29,8 +29,12 @@ namespace InventoryApi.Controllers
             [HttpPost("Login")]
             public IActionResult Login([FromBody] UserInfo userInfo)
             {
-                _userInfoService.Login(userInfo);
-                return Ok(" Login successfull!");
+                UserInfo user = _userInfoService.Login(userInfo);
+                if(user!=null)
+
+                      return Ok("Login Successfull!");
+                else 
+                      return NotFound();
             }
         }
 }
